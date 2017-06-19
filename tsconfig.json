@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "noUnusedLocals": true,
+        "experimentalDecorators": true,
+        "target": "es2015",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": [
+            "es2015"
+        ]
+    }
+}
