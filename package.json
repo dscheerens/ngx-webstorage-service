@@ -1,6 +1,6 @@
 {
   "name": "angular-webstorage-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Angular4+ service wrappers for the webstorage API",
   "homepage": "https://github.com/dscheerens/angular-webstorage-service",
   "main": "./bundles/angular-webstorage-service.umd.js",
