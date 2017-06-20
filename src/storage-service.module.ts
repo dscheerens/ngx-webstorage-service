@@ -26,7 +26,7 @@ export function localStorageFactory(): StorageService {
 
 @NgModule({
     providers: [
-        { provide: SESSION_STORAGE, useValue: sessionStorageFactory },
+        { provide: SESSION_STORAGE, useFactory: sessionStorageFactory },
         { provide: LOCAL_STORAGE, useFactory: localStorageFactory }
     ]
 })
