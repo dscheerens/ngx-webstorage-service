@@ -28,7 +28,7 @@ Usually you'll need to select the right bundle for each tool.
 The `angular-webstorage-service` package provides the following bundles:
 
 * An ECMAScript 6 bundle (used for tree shaking): `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.js`
-* An ECMAScript 5 bundle int ES6 module (ESM) format: `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.es5.js`
+* An ECMAScript 5 bundle in ES6 module (ESM) format: `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.es5.js`
 * An ECMAScript 5 bundle with in universal module (UMD) format: `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.umd.js`
 
 ## Usage
@@ -77,14 +77,14 @@ Instead of directly using the `SESSION_STORAGE` or `LOCAL_STORAGE` injection tok
 For the code example above you could do it like this:
 
 ```TypeScript
-export const MY_AWESOME_SERIVCE_STORAGE =
-    new InjectionToken<StorageService>('MY_AWESOME_SERIVCE_STORAGE');
+export const MY_AWESOME_SERVICE_STORAGE =
+    new InjectionToken<StorageService>('MY_AWESOME_SERVICE_STORAGE');
 
 @Injectable()
 export class MyAwesomeService {
 
     constructor(
-        @Inject(MY_AWESOME_SERIVCE_STORAGE) private storage: StorageService
+        @Inject(MY_AWESOME_SERVICE_STORAGE) private storage: StorageService
     ) {
 
     }
@@ -99,12 +99,12 @@ Then, in your module definition, you can create a provider for the injection tok
 import { NgModule } from '@angular/core';
 import { SESSION_STORAGE, StorageServiceModule } from 'angular-webstorage-service';
 
-import { MY_AWESOME_SERIVCE_STORAGE, MyAwesomeService } from './my-awesome-service';
+import { MY_AWESOME_SERVICE_STORAGE, MyAwesomeService } from './my-awesome-service';
 
 @NgModule({
     imports: [ StorageServiceModule ],
     providers: [
-        { provide: MY_AWESOME_SERIVCE_STORAGE, useExisting: SESSION_STORAGE },
+        { provide: MY_AWESOME_SERVICE_STORAGE, useExisting: SESSION_STORAGE },
         MyAwesomeService
     ]
 })
