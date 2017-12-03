@@ -1,11 +1,11 @@
 {
-  "name": "angular-webstorage-service",
+  "name": "ngx-webstorage-service",
   "version": "1.0.2",
   "description": "Angular4+ service wrappers for the webstorage API",
-  "homepage": "https://github.com/dscheerens/angular-webstorage-service",
-  "main": "./bundles/angular-webstorage-service.umd.js",
-  "module": "./bundles/angular-webstorage-service.es5.js",
-  "es2015": "./bundles/angular-webstorage-service.js",
+  "homepage": "https://github.com/dscheerens/ngx-webstorage-service",
+  "main": "./bundles/ngx-webstorage-service.umd.js",
+  "module": "./bundles/ngx-webstorage-service.es5.js",
+  "es2015": "./bundles/ngx-webstorage-service.js",
   "scripts": {
     "clean": "rimraf build",
     "build": "gulp",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dscheerens/angular-webstorage-service.git"
+    "url": "git://github.com/dscheerens/ngx-webstorage-service.git"
   },
   "keywords": [
     "angular",

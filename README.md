@@ -1,6 +1,4 @@
-[![Build Status](https://api.travis-ci.org/dscheerens/ngx-webstorage-service.svg?branch=master)](https://travis-ci.org/dscheerens/ngx-webstorage-service) [![NPM Version](https://img.shields.io/npm/v/angular-webstorage-service.svg)](https://www.npmjs.com/package/angular-webstorage-service)
-
-> **Imporant:** This package has been renamed to `ngx-webstorage-service`!
+[![Build Status](https://api.travis-ci.org/dscheerens/ngx-webstorage-service.svg?branch=master)](https://travis-ci.org/dscheerens/ngx-webstorage-service) [![NPM Version](https://img.shields.io/npm/v/ngx-webstorage-service.svg)](https://www.npmjs.com/package/ngx-webstorage-service)
 
 # Webstorage services for Angular 4+
 
@@ -22,16 +20,16 @@ Doing so has the following advantages:
 Add the module to your `package.json` file:
 
 ```
-npm install --save angular-webstorage-service
+npm install --save ngx-webstorage-service
 ```
 
-After having installed the `angular-webstorage-service` package you might need to update your project configuration if you use tools like _SystemJS_ or _Karma_.
+After having installed the `ngx-webstorage-service` package you might need to update your project configuration if you use tools like _SystemJS_ or _Karma_.
 Usually you'll need to select the right bundle for each tool.
-The `angular-webstorage-service` package provides the following bundles:
+The `ngx-webstorage-service` package provides the following bundles:
 
-* An ECMAScript 6 bundle (used for tree shaking): `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.js`
-* An ECMAScript 5 bundle in ES6 module (ESM) format: `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.es5.js`
-* An ECMAScript 5 bundle with in universal module (UMD) format: `node_modules/angular-webstorage-service/bundles/angular-webstorage-service.umd.js`
+* An ECMAScript 6 bundle (used for tree shaking): `node_modules/ngx-webstorage-service/bundles/ngx-webstorage-service.js`
+* An ECMAScript 5 bundle in ES6 module (ESM) format: `node_modules/ngx-webstorage-service/bundles/ngx-webstorage-service.es5.js`
+* An ECMAScript 5 bundle with in universal module (UMD) format: `node_modules/ngx-webstorage-service/bundles/ngx-webstorage-service.umd.js`
 
 ## Usage
 
@@ -39,7 +37,7 @@ To make use of the (web) storage services in your application, first you need to
 
 ```TypeScript
 import { NgModule } from '@angular/core';
-import { StorageServiceModule } from 'angular-webstorage-service';
+import { StorageServiceModule } from 'ngx-webstorage-service';
 
 @NgModule({
     imports: [ StorageServiceModule ]
@@ -55,7 +53,7 @@ The code snippet below shows an example.
 
 ```TypeScript
 import { Inject, Injectable } from '@angular/core';
-import { SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
+import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 const STORAGE_KEY = 'pure-awesomeness';
 
@@ -99,7 +97,7 @@ Then, in your module definition, you can create a provider for the injection tok
 
 ```TypeScript
 import { NgModule } from '@angular/core';
-import { SESSION_STORAGE, StorageServiceModule } from 'angular-webstorage-service';
+import { SESSION_STORAGE, StorageServiceModule } from 'ngx-webstorage-service';
 
 import { MY_AWESOME_SERVICE_STORAGE, MyAwesomeService } from './my-awesome-service';
 
@@ -154,7 +152,7 @@ This function accepts one parameter of type `Storage` (which is part of the HTML
 An example use of the function is shown below:
 
 ```TypeScript
-import { isStorageAvailable } from 'angular-webstorage-service';
+import { isStorageAvailable } from 'ngx-webstorage-service';
 
 const sessionStorageAvailable = isStorageAvailable(sessionStorage);
 
