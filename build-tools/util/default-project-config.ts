@@ -52,14 +52,27 @@ export const DEFAULT_PROJECT_CONFIG = new ProjectConfig({
             rollupGlobals: rxjsRollupGlobalsResolver
         },
         angularModule('animations'),
-        angularModule('common', ['testing']),
+        angularModule('common', ['testing', 'http', 'http/testing']),
         angularModule('compiler', ['testing']),
         angularModule('core', ['testing']),
         angularModule('forms'),
         angularModule('http', ['testing']),
         angularModule('platform-browser', ['animations', 'testing']),
         angularModule('platform-browser-dynamic', ['testing']),
-        angularModule('router', ['testing'])
+        angularModule('router', ['testing']),
+        {
+            moduleName: 'tslib',
+            karmaFiles: [ 'node_modules/tslib/tslib.js' ],
+            systemjs: {
+                map: {
+                    tslib: 'node_modules/tslib'
+                },
+                packages: {
+                    tslib: { main: 'tslib.js', defaultExtension: 'js' }
+                }
+            },
+            rollupGlobals: { tslib: 'tslib' }
+        }
     ],
     staticFiles: [
         (path: string) => `${path}/package.json`
@@ -98,7 +111,7 @@ function angularModule(moduleName: string, subpackages: string[] = []): ModuleCo
         .set(angularPackageName, `node_modules/@angular/${moduleName}/bundles/${moduleName}.umd.js`);
     subpackages.forEach((subpackage) => {
         const subpackageName = `${angularPackageName}/${subpackage}`;
-        moduleMap.set(subpackageName, `node_modules/@angular/${moduleName}/bundles/${moduleName}-${subpackage}.umd.js`);
+        moduleMap.set(subpackageName, `node_modules/@angular/${moduleName}/bundles/${moduleName}-${subpackage.replace(/\//g, '-')}.umd.js`);
     });
 
     const systemjsPaths: { [key: string]: string } = {};
@@ -116,4 +129,3 @@ function angularModule(moduleName: string, subpackages: string[] = []): ModuleCo
         rollupGlobals: angularRollupGlobalsResolver(moduleName)
     };
 }
-

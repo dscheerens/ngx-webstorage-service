@@ -1,18 +1,14 @@
 language: node_js
 
 node_js:
-  - '6'
+  - '8'
 
 cache:
-  yarn: true
   directories:
     - node_modules
 
-before_install:
-  - npm install -g yarn
-
 install:
-  - yarn install
+  - npm install
 
 before_script:
   - export CHROME_BIN=chromium-browser

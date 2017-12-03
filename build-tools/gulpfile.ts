@@ -18,7 +18,6 @@ import { mergeSystemjsModuleConfig } from './util/project-config.model';
 import { globalsResolverToExternalResolver } from './util/rollupjs-util';
 import { runKarma } from './util/run-karma';
 import { splitNpmPackageName } from './util/split-npm-package-name';
-import { TYPESCRIPT_HELPER_FUNCTIONS as typescriptHelperFunctions } from './util/ts-helpers';
 
 gulp.task('default', ['build.dist']);
 
@@ -97,15 +96,17 @@ function ngcTask(sourceDirectory: string, target: 'es5' | 'es6', extraCompilerOp
     return (done: DoneCallback) => {
         const cliOptions = new NgcCliOptions({});
 
-        const tsOptions: ts.CompilerOptions = Object.assign({}, extraCompilerOptions, {
-            target: target === 'es6' ? ts.ScriptTarget.ES2016 : ts.ScriptTarget.ES5
-        });
+        const tsOptions: ts.CompilerOptions = {
+            ...extraCompilerOptions,
+            target: target === 'es6' ? ts.ScriptTarget.ES2016 : ts.ScriptTarget.ES5,
+            importHelpers: true
+        };
 
         ngc(sourceDirectory, cliOptions, codegen, tsOptions)
             .then(done)
             .catch((error) => {
-                console.error(error.stack);
-                console.error('Compilation failed');
+                (console).error(error.stack);
+                (console).error('Compilation failed');
                 process.exit(1);
             });
     };
@@ -135,15 +136,15 @@ function rollupTask(moduleFormat: 'es' | 'umd', filenameInfix?: string, intro?: 
             .then((bundle) => bundle.write(bundleOptions))
             .then(() => done())
             .catch((error) => {
-                console.error(error);
+                (console).error(error);
                 process.exit(1);
             });
     };
 }
 
-gulp.task('rollup.dist.es5.umd', rollupTask('umd', '.umd', typescriptHelperFunctions.umd.trim()));
+gulp.task('rollup.dist.es5.umd', rollupTask('umd', '.umd'));
 
-gulp.task('rollup.dist.es5.esm', rollupTask('es', '.es5', typescriptHelperFunctions.esm.trim()));
+gulp.task('rollup.dist.es5.esm', rollupTask('es', '.es5'));
 
 gulp.task('rollup.dist.es6', rollupTask('es'));
 
