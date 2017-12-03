@@ -1,4 +1,6 @@
-[![Build Status](https://api.travis-ci.org/dscheerens/angular-webstorage-service.svg?branch=master)](https://travis-ci.org/dscheerens/angular-webstorage-service) [![NPM Version](https://img.shields.io/npm/v/angular-webstorage-service.svg)](https://www.npmjs.com/package/angular-webstorage-service)
+[![Build Status](https://api.travis-ci.org/dscheerens/ngx-webstorage-service.svg?branch=master)](https://travis-ci.org/dscheerens/ngx-webstorage-service) [![NPM Version](https://img.shields.io/npm/v/angular-webstorage-service.svg)](https://www.npmjs.com/package/angular-webstorage-service)
+
+> **Imporant:** This package has been renamed to `ngx-webstorage-service`!
 
 # Webstorage services for Angular 4+
 
