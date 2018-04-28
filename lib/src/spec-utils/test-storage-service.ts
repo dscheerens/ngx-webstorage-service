@@ -52,6 +52,22 @@ export function testStorageService(
             expect(storageService.get('test-phrase')).toBeNull();
         });
 
+        it('can clear the storage', () => {
+            storageService.set('foo', 1);
+            storageService.set('bar', true);
+            storageService.set('baz', { yolo: 'forever! :D' });
+
+            expect(storageService.get('foo')).toEqual(1);
+            expect(storageService.get('bar')).toEqual(true);
+            expect(storageService.get('baz')).toEqual({ yolo: 'forever! :D' });
+
+            storageService.clear();
+
+            expect(storageService.get('foo')).toBeNull();
+            expect(storageService.get('bar')).toBeNull();
+            expect(storageService.get('baz')).toBeNull();
+        });
+
         if (prepareFaultyEntry) {
             it('returns null for entries with a faulty value', () => {
                 storageService.set('bad-entry', 'so far so good...');

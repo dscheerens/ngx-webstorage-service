@@ -45,4 +45,12 @@ export class InMemoryStorageService implements StorageService {
         this.storage.delete(key);
     }
 
+    /**
+     * Clears the storage by removing all entries. Subsequent `get(x)` calls for a key *x* will return `null`, until a new value is set for
+     * key *x*.
+     */
+    public clear(): void {
+        this.storage.clear();
+    }
+
 }

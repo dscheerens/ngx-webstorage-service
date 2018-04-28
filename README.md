@@ -128,6 +128,9 @@ This interface has the following functions:
 * `remove(key: string): void` -
   Removes the entry that is identified by the specified key. Attempting to remove an entry for an unknown key will have no effect.
   Attempting to retrieve an entry via the `get` method after it has been removed will result in `null`.
+* `clear(): void` -
+  Clears the storage by removing all entries from the storage.
+  Subsequent `get(x)` calls for a key *x* will return `null`, until a new value is set for key *x*.
 
 Two implementations of the `StorageService` are provided by this package:
 

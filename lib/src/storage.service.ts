@@ -32,4 +32,9 @@ export interface StorageService {
      */
     remove(key: string): void;
 
+    /**
+     * Clears the storage by removing all entries.
+     */
+    clear(): void;
+
 }
