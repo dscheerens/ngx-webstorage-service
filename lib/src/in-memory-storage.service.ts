@@ -6,7 +6,7 @@ import { StorageService } from './storage.service';
  */
 export class InMemoryStorageService implements StorageService {
 
-    private storage: Map<string, any> = new Map<string, any>();
+    private readonly storage: Map<string, any> = new Map<string, any>();
 
     /**
      * Retrieves the value stored for the entry that is associated with the specified key. If no such entry exists or if the service for
@@ -19,6 +19,7 @@ export class InMemoryStorageService implements StorageService {
         if (!this.storage.has(key)) {
             return null;
         }
+
         return this.storage.get(key);
     }
 

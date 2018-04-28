@@ -14,8 +14,8 @@ describe('web storage service for `sessionStorage`', testStorageService(
 describe('isStorageAvailable() function', () => {
 
     it('returns false when the provided storage is either null or undefined', () => {
-        expect(isStorageAvailable(null)).toBe(false);
-        expect(isStorageAvailable(undefined)).toBe(false);
+        expect(isStorageAvailable(null!)).toBe(false);
+        expect(isStorageAvailable(undefined!)).toBe(false);
     });
 
     it('returns false for non Storage objects', () => {
@@ -25,20 +25,20 @@ describe('isStorageAvailable() function', () => {
 
     it('returns false for faulty Storage objects', () => {
         expect(isStorageAvailable(<any> {
-            setItem() { throw new Error('Oops, not supported!'); }
+            setItem(): void { throw new Error('Oops, not supported!'); }
         })).toBe(false);
 
         expect(isStorageAvailable(<any> {
-            setItem() { /* no-op. */ }
+            setItem(): void { }
         })).toBe(false);
 
         expect(isStorageAvailable(<any> {
-            setItem() { /* no-op. */ },
-            getItem(): string { return null; }
+            setItem(): void { },
+            getItem(): string { return null!; }
         })).toBe(false);
 
         expect(isStorageAvailable(<any> {
-            setItem() { /* no-op. */ },
+            setItem(): void { },
             getItem(): string { throw new Error('Oops, not supported!'); }
         })).toBe(false);
     });

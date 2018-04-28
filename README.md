@@ -1,6 +1,6 @@
 [![Build Status](https://api.travis-ci.org/dscheerens/ngx-webstorage-service.svg?branch=master)](https://travis-ci.org/dscheerens/ngx-webstorage-service) [![NPM Version](https://img.shields.io/npm/v/ngx-webstorage-service.svg)](https://www.npmjs.com/package/ngx-webstorage-service)
 
-# Webstorage services for Angular 4+
+# Webstorage services for Angular 5+
 
 This package provides service wrappers for the [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
 Whenever your application needs to use `localStorage` or `sessionStorage`, instead of using them directly you can make use of the wrapped versions provided by this package.
@@ -23,13 +23,8 @@ Add the module to your `package.json` file:
 npm install --save ngx-webstorage-service
 ```
 
-After having installed the `ngx-webstorage-service` package you might need to update your project configuration if you use tools like _SystemJS_ or _Karma_.
-Usually you'll need to select the right bundle for each tool.
-The `ngx-webstorage-service` package provides the following bundles:
-
-* An ECMAScript 6 bundle (used for tree shaking): `node_modules/ngx-webstorage-service/bundles/ngx-webstorage-service.js`
-* An ECMAScript 5 bundle in ES6 module (ESM) format: `node_modules/ngx-webstorage-service/bundles/ngx-webstorage-service.es5.js`
-* An ECMAScript 5 bundle with in universal module (UMD) format: `node_modules/ngx-webstorage-service/bundles/ngx-webstorage-service.umd.js`
+After having installed the `ngx-webstorage-service` package you might need to update your project configuration depending on the build tools you use, e.g. _SystemJS_ or _Karma_.
+The `ngx-webstorage-service` package is published in the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview).
 
 ## Usage
 
@@ -148,7 +143,7 @@ Two implementations of the `StorageService` are provided by this package:
   Also these injection tokens have a fallback mechanism available that switches to the `InMemoryStorageService` when `localStorage` and `sessionStorage` are not available.
 
 In case you want to check whether `localStorage` and `sessionStorage` are available within the current browser yourself, you can make use of the `isStorageAvailable` function.
-This function accepts one parameter of type `Storage` (which is part of the HTML 5 specification) and returns a boolean that indicates whether the storage is available.
+This function accepts one parameter of type [`Storage`](https://developer.mozilla.org/en-US/docs/Web/API/Storage) (which is part of the HTML 5 specification) and returns a boolean that indicates whether the storage is available.
 An example use of the function is shown below:
 
 ```TypeScript

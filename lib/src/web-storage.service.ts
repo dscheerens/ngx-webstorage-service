@@ -12,7 +12,7 @@ export class WebStorageService implements StorageService {
      *
      * @param storage Storage object which is to be wrapped in a class that implements the `StorageService` interface.
      */
-    constructor(private storage: Storage) {
+    constructor(private readonly storage: Storage) {
     }
 
     /**
@@ -24,7 +24,9 @@ export class WebStorageService implements StorageService {
      */
     public get(key: string): any {
         try {
-            return JSON.parse(this.storage.getItem(key));
+            const value = this.storage.getItem(key);
+
+            return value !== null ? JSON.parse(value) : null;
         } catch (error) {
             return null;
         }
@@ -75,6 +77,7 @@ export function isStorageAvailable(storage: Storage): boolean {
         storage.setItem(testItemKey, testItemValue);
         const retrievedItemValue = storage.getItem(testItemKey);
         storage.removeItem(testItemKey);
+
         return retrievedItemValue === testItemValue;
     } catch (error) {
         return false;

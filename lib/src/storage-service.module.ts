@@ -14,6 +14,7 @@ export function sessionStorageFactory(): StorageService {
     if (!isStorageAvailable(sessionStorage)) {
         return new InMemoryStorageService();
     }
+
     return new WebStorageService(sessionStorage);
 }
 
@@ -21,6 +22,7 @@ export function localStorageFactory(): StorageService {
     if (!isStorageAvailable(localStorage)) {
         return new InMemoryStorageService();
     }
+
     return new WebStorageService(localStorage);
 }
 
