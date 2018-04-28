@@ -33,7 +33,8 @@ export interface StorageService {
     remove(key: string): void;
 
     /**
-     * Clears the storage by removing all entries.
+     * Clears the storage by removing all entries. Subsequent `get(x)` calls for a key *x* will return `null`, until a new value is set for
+     * key *x*.
      */
     clear(): void;
 
