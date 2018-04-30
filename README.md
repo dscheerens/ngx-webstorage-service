@@ -12,8 +12,9 @@ Doing so has the following advantages:
 * Mocking storage in unit tests becomes a piece of cake.
 * The `localStorage` and `sessionStorage` wrappers have built-in availability checks, that fall back to in-memory storage when they are unavailable.
   The latter can happen for example for older browsers or for browsers that disable web storage when private browsing mode is enabled.
-* The storage services can be used to store any value that can be serialized as a JSON string.
+* By default the storage services can be used to store any value that can be serialized as a JSON string.
   This means you do not have to serialize and deserialize non-string values yourself, which makes the use of the storage services a bit more ergonomic compared to the direct use of `localStorage` and `sessionStorage`.
+  However, instead of JSON you can also choose to use other [storage transcoders](#storage-transcoders), which allows you to control what type of values can be stored and retrieved and also in what format data is stored.
 
 ## Installation
 
@@ -115,22 +116,34 @@ The specific application of the API governs which type of storage is appropriate
 
 ## API
 
-The heart of this package is the `StorageService` interface.
-This interface has the following functions:
+The heart of this package is the `StorageService<T>` interface.
+This `interface` has the following functions:
 
-* `get(key: string): any` -
+* `get(key: string): T | undefined` -
   Retrieves the value stored for the entry that is associated with the specified key.
-  If no such entry exists or if the service for some reason is unable to fetch the value of the entry then `null` will be returned.
-* `set(key: string, value: any): void` -
+  If no such entry exists or if the service for some reason is unable to fetch the value of the entry then `undefined` will be returned.
+* `get<X>(key: string, decoder: StorageDecoder<X>): X | undefined` -
+  Same as `get(key)` but instead uses the specified decoder to retrieve a value of type `X` instead of `T`.
+  *For more information see the [Storage transcoders](#storage-transcoders) section.*
+* `set(key: string, value: T): void` -
   Creates or updates the entry identified by the specified key with the given value.
   Storing a value into the storage service will ensure that an equivalent of the value can be read back, i.e. the data and structure of the value will be the same.
   It, however, does not necessarily return the same value, i.e. the same reference.
+* `set<X>(key: string, value: X, encoder: StorageEncoder<X>): void` -
+  Same as `set(key, value)` but instead uses the specified encoder.
+  *For more information see the [Storage transcoders](#storage-transcoders) section.*
 * `remove(key: string): void` -
   Removes the entry that is identified by the specified key. Attempting to remove an entry for an unknown key will have no effect.
-  Attempting to retrieve an entry via the `get` method after it has been removed will result in `null`.
+  Attempting to retrieve an entry via the `get` method after it has been removed will result in `undefined`.
 * `clear(): void` -
   Clears the storage by removing all entries from the storage.
-  Subsequent `get(x)` calls for a key *x* will return `null`, until a new value is set for key *x*.
+  Subsequent `get(x)` calls for a key *x* will return `undefined`, until a new value is set for key *x*.
+* `withDefaultTranscoder<X>(transcoder: StorageTranscoder<X>): StorageService<X>` -
+  Creates a new storage service that uses the specified transcoder by default for read and write operations.
+  The new storage service uses the storage service on which this function is invoked as underlying storage.
+  Both storage services will thus be able to access the same data.
+  **Note that the default transcoder will not be changed for the storage service on which this function is invoked.**
+  *For more information see the [Storage transcoders](#storage-transcoders) section.*
 
 Two implementations of the `StorageService` are provided by this package:
 
@@ -156,3 +169,72 @@ const sessionStorageAvailable = isStorageAvailable(sessionStorage);
 
 console.log(`Session storage available: ${sessionStorageAvailable}`);
 ```
+
+## Storage transcoders
+
+With the release of version 3.0.0 of `ngx-webstorage-service` the concept of storage transcoding has been introduced.
+A storage transcoder determines what type of values can be stored and retrieved by a `StorageService` instance.
+This is reflected by the type parameter `T` in the `StorageService` interface.
+By default any type of value can be stored as long as it can be represented by a JSON string.
+Hence the type parameter `T` defaults to `any`.
+
+Sometimes, however, you might prefer to store the data in another format than JSON strings, for example if values are read/written by a third party library that uses a different format.
+This is often the case when the stored value is just a string.
+Since values are read/written as JSON strings a normal string will be wrapped in quotes by default (as this is how strings are encoded in JSON format).
+If the third party library writes string values without quotes, then `ngx-webstorage-service` will not be able to read the value, because it is not a valid JSON string.
+
+This problem can be addressed by using a different transcoder, which is illustrated in the following example:
+
+```Typescript
+import { Inject, Injectable } from '@angular/core';
+import { SESSION_STORAGE, StorageService, StorageTranscoders } from 'ngx-webstorage-service';
+
+@Injectable()
+export class MyAwesomeService {
+
+    constructor(@Inject(SESSION_STORAGE) storage: StorageService) {
+        // Mimic third party storing a value...
+        sessionStorage.setItem('foo', 'bar');
+
+        // Retrieve value...
+        storage.get('foo'); // undefined :(
+        storage.get('foo', StorageTranscoders.STRING); // 'bar' :)
+    }
+}
+```
+
+Both the `get` and `set` functions of the `StorageService` have been overloaded to accept an optional `StorageTranscoder`.
+If you only use one type of transcoder for the storage service (other than JSON), then you can also make use of the `withDefaultTranscoder` function of the `StorageService` interface to create a new instance that uses the specified transcoder by default.
+An example of this is shown below:
+
+```Typescript
+import { Inject, Injectable } from '@angular/core';
+import { SESSION_STORAGE, StorageService, StorageTranscoders } from 'ngx-webstorage-service';
+
+@Injectable()
+export class AnsweringService {
+
+    private numberStorage: StorageService<number>
+
+    constructor(@Inject(SESSION_STORAGE) storage: StorageService) {
+        this.numberStorage = storage.withDefaultTranscoder(StorageTranscoders.NUMBER);
+    }
+
+    public get theAnswer(): number {
+        return numberStorage.get('answer');
+    }
+
+    public set theAnswer(value: number) {
+        return numberStorage.set('answer', value);
+    }
+}
+```
+
+The following storage transcoders are available:
+
+* `StorageTranscoders.JSON` - Transcodes any value and stores it in JSON format.
+* `StorageTranscoders.STRING` - Transcodes strings only and **does not change the format**.
+* `StorageTranscoders.BOOLEAN` - Transcodes booleans and stores them as a strings with the value of either `'true'` or `'false'`.
+* `StorageTranscoders.NUMBER` - Transcodes numbers and stores them as strings (_radix = 10_), e.g. `'123'` or `'-1.2e-34'`.
+
+It is also possible to create your own transcoder by defining an object that conforms to the `StorageTranscoder` interface.
