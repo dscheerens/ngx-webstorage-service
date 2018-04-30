@@ -8,10 +8,13 @@
   "keywords": [
     "angular",
     "ng",
+    "ngx",
     "webstorage",
     "storage",
     "localstorage",
-    "sessionstorage"
+    "sessionstorage",
+    "local",
+    "session"
   ],
   "repository": {
     "type": "git",
