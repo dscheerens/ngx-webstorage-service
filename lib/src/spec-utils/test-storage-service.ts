@@ -1,4 +1,5 @@
 import { StorageService } from '../storage.service';
+import { StorageTranscoders } from '../storage-transcoders';
 
 export function testStorageService(
     storageServiceFactory: () => StorageService,
@@ -39,17 +40,17 @@ export function testStorageService(
             expect(storageService.get('key-a')).toBe('second');
         });
 
-        it('returns null when attempting to fetch an entry for an unknown key', () => {
-            expect(storageService.get('non-existing-key')).toBeNull();
-            expect(storageService.get('bogus')).toBeNull();
-            expect(storageService.get('!null')).toBeNull();
+        it('returns undefined when attempting to fetch an entry for an unknown key', () => {
+            expect(storageService.get('non-existing-key')).toBeUndefined();
+            expect(storageService.get('bogus')).toBeUndefined();
+            expect(storageService.get('!undefined')).toBeUndefined();
         });
 
-        it('returns null for removed entries', () => {
+        it('returns undefined for removed entries', () => {
             storageService.set('test-phrase', 'testing 1, 2, 3...');
             expect(storageService.get('test-phrase')).toBe('testing 1, 2, 3...');
             storageService.remove('test-phrase');
-            expect(storageService.get('test-phrase')).toBeNull();
+            expect(storageService.get('test-phrase')).toBeUndefined();
         });
 
         it('can clear the storage', () => {
@@ -63,18 +64,39 @@ export function testStorageService(
 
             storageService.clear();
 
-            expect(storageService.get('foo')).toBeNull();
-            expect(storageService.get('bar')).toBeNull();
-            expect(storageService.get('baz')).toBeNull();
+            expect(storageService.get('foo')).toBeUndefined();
+            expect(storageService.get('bar')).toBeUndefined();
+            expect(storageService.get('baz')).toBeUndefined();
+        });
+
+        it('supports changing to a different default transcoder', () => {
+            const stringStorageService = storageService.withDefaultTranscoder(StorageTranscoders.STRING);
+            const numberStorageService = stringStorageService.withDefaultTranscoder(StorageTranscoders.NUMBER);
+            const booleanStorageService = storageService.withDefaultTranscoder(StorageTranscoders.BOOLEAN);
+
+            expect(stringStorageService.get('test')).toBeUndefined();
+
+            stringStorageService.set('test', 'hey, this is a string!');
+
+            expect(stringStorageService.get('test')).toEqual('hey, this is a string!');
+            expect(numberStorageService.get('test')).toBeUndefined();
+            expect(booleanStorageService.get('test')).toBeUndefined();
+
+            booleanStorageService.set('boolean-test', false);
+            expect(booleanStorageService.get('boolean-test')).toBe(false);
+            expect(numberStorageService.get('boolean')).toBeUndefined();
+
+            numberStorageService.set('number-test', -3.13e-37);
+            expect(numberStorageService.get('number-test')).toBe(-3.13e-37);
         });
 
         if (prepareFaultyEntry) {
-            it('returns null for entries with a faulty value', () => {
+            it('returns undefined for entries with a faulty value', () => {
                 storageService.set('bad-entry', 'so far so good...');
                 expect(storageService.get('bad-entry')).toBe('so far so good...');
 
                 prepareFaultyEntry('bad-entry');
-                expect(storageService.get('bad-entry')).toBeNull();
+                expect(storageService.get('bad-entry')).toBeUndefined();
             });
         }
     };

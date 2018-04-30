@@ -1,21 +1,19 @@
+import { StorageService } from './storage.service';
 import { StorageDecoder, StorageEncoder, StorageTranscoder } from './storage-transcoder';
+import { ProxyStorageService } from './proxy-storage.service';
 
 /**
- * Interface for objects that can be used to store data. The service is expected to store any kind of data that can be encoded as a string.
- *
- * The `StorageService` interface is parameterized on `T` which represents the type of objects which can be read and written.
+ * Base implementation for storage services.
  */
-export interface StorageService<T = any> {
+export abstract class BaseStorageService<T> implements StorageService<T> {
 
     /**
-     * Retrieves the value stored for the entry that is associated with the specified key. If no such entry exists or if the service for
-     * some reason is unable to fetch the value of the entry then `undefined` will be returned.
+     * Creates a new `BaseStorageService` that uses the specified transcoder by default for read and write operations.
      *
-     * @param   key Identifier of the entry whose value is to be retrieved.
-     * @returns     Value of the entry that is identified by the specified key. In case the entry does not exist or if it cannot be loaded
-     *              (due to a decoding issue), then `undefined` will be returned by this function.
+     * @param defaultTranscoder Transcoder which is to be used by default for storage read and write operations.
      */
-    get(key: string): T | undefined;
+    constructor(private readonly defaultTranscoder: StorageTranscoder<T>) {
+    }
 
     /**
      * Retrieves the value stored for the entry that is associated with the specified key. The given decoder is used to convert the stored
@@ -27,17 +25,11 @@ export interface StorageService<T = any> {
      * @returns         Value of the entry that is identified by the specified key. In case the entry does not exist or if it cannot be
      *                  loaded (due to a decoding issue), then `undefined` will be returned by this function.
      */
-    get<X>(key: string, decoder: StorageDecoder<X>): X | undefined;
+    public get(key: string, decoder?: StorageDecoder<any>): any {
+        const value = this.getItem(key);
 
-    /**
-     * Creates or updates the entry identified by the specified key with the given value. Storing a value into the storage service will
-     * ensure that an equivalent of the value can be read back, i.e. the data and structure of the value will be the same. It, however, does
-     * not necessarily return the same reference.
-     *
-     * @param key   Identifier of the entry which is to be created or updated.
-     * @param value Value which is to be stored.
-     */
-    set(key: string, value: T): void;
+        return value !== undefined ? (decoder || this.defaultTranscoder).decode(value) : undefined;
+    }
 
     /**
      * Creates or updates the entry identified by the specified key with the given value. The specified encoder is used to convert the given
@@ -50,7 +42,9 @@ export interface StorageService<T = any> {
      * @param value   Value which is to be stored.
      * @param encoder Encoder used to convert the given value into a format that can be used for storage.
      */
-    set<X>(key: string, value: X, encoder: StorageEncoder<X>): void;
+    public set(key: string, value: any, encoder?: StorageEncoder<any>): void {
+        this.setItem(key, (encoder || this.defaultTranscoder).encode(value));
+    }
 
     /**
      * Removes the entry that is identified by the specified key. Attempting to remove an entry for an unknown key will have no effect.
@@ -58,13 +52,13 @@ export interface StorageService<T = any> {
      *
      * @param key Identifier of the entry which is to be removed.
      */
-    remove(key: string): void;
+    public abstract remove(key: string): void;
 
     /**
      * Clears the storage by removing all entries. Subsequent `get(x)` calls for a key *x* will return `undefined`, until a new value is set
      * for key *x*.
      */
-    clear(): void;
+    public abstract clear(): void;
 
     /**
      * Creates a new storage service that uses the specified transcoder by default for read and write operations. The new storage service
@@ -76,6 +70,24 @@ export interface StorageService<T = any> {
      * @param   transcoder Transcoder that should be used by default for read and write operations by the new storage service.
      * @returns            A new storage service that uses the specified transcoder by default.
      */
-    withDefaultTranscoder<X>(transcoder: StorageTranscoder<X>): StorageService<X>;
+    public withDefaultTranscoder<X>(transcoder: StorageTranscoder<X>): StorageService<X> {
+        return new ProxyStorageService(transcoder, this);
+    }
+
+    /**
+     * Performs the actual retrieval of a value from storage.
+     *
+     * @param   key Identifier of the entry whose value is to be retrieved.
+     * @returns     The value that is stored for the specified entry or `undefined` if no entry exists for the specified key.
+     */
+    protected abstract getItem(key: string): string | undefined;
+
+    /**
+     * Stores the provided value using specified key in the storage.
+     *
+     * @param key   Identifier of the entry for which the value is to be stored.
+     * @param value The value that is to be stored.
+     */
+    protected abstract setItem(key: string, value: string): void;
 
 }

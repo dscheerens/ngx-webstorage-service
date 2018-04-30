@@ -1,43 +1,25 @@
-import { StorageService } from './storage.service';
+import { BaseStorageService } from './base-storage.service';
+import { StorageTranscoders } from './storage-transcoders';
 
 /**
  * A volatile `StorageService` implementation. This service guarantees that data stored will remain available as long as the application
  * instance is active. After the application is terminated all data will be lost.
  */
-export class InMemoryStorageService implements StorageService {
+export class InMemoryStorageService extends BaseStorageService<any> {
 
-    private readonly storage: Map<string, any> = new Map<string, any>();
-
-    /**
-     * Retrieves the value stored for the entry that is associated with the specified key. If no such entry exists or if the service for
-     * some reason is unable to fetch the value of the entry then `null` will be returned.
-     *
-     * @param   key Identifier of the entry whose value is to be retrieved.
-     * @returns     Value of the entry that is identified by the specified key or `null` if the entry does not exist or cannot be loaded.
-     */
-    public get(key: string): any {
-        if (!this.storage.has(key)) {
-            return null;
-        }
-
-        return this.storage.get(key);
-    }
+    /** A map that serves as the underlying backing storage for this service. */
+    private readonly storage: Map<string, string> = new Map<string, string>();
 
     /**
-     * Creates or updates the entry identified by the specified key with the given value. Storing a value into the storage service will
-     * ensure that an equivalent of the value can be read back, i.e. the data and structure of the value will be the same. It, however, does
-     * not necessarily return the same value, i.e. the same reference.
-     *
-     * @param key   Identifier of the entry which is to be created or updated.
-     * @param value Value which is to be stored.
+     * Creates a new `InMemoryStorageService` instance.
      */
-    public set(key: string, value: any): void {
-        this.storage.set(key, value);
+    constructor() {
+        super(StorageTranscoders.JSON);
     }
 
     /**
      * Removes the entry that is identified by the specified key. Attempting to remove an entry for an unknown key will have no effect.
-     * Attempting to retrieve an entry via the `get` method after it has been removed will result in `null`.
+     * Attempting to retrieve an entry via the `get` method after it has been removed will result in `undefined`.
      *
      * @param key Identifier of the entry which is to be removed.
      */
@@ -46,11 +28,35 @@ export class InMemoryStorageService implements StorageService {
     }
 
     /**
-     * Clears the storage by removing all entries. Subsequent `get(x)` calls for a key *x* will return `null`, until a new value is set for
-     * key *x*.
+     * Clears the storage by removing all entries. Subsequent `get(x)` calls for a key *x* will return `undefined`, until a new value is set
+     * for key *x*.
      */
     public clear(): void {
         this.storage.clear();
+    }
+
+    /**
+     * Performs the actual retrieval of a value from storage.
+     *
+     * @param   key Identifier of the entry whose value is to be retrieved.
+     * @returns     The value that is stored for the specified entry or `undefined` if no entry exists for the specified key.
+     */
+    protected getItem(key: string): string | undefined {
+        if (!this.storage.has(key)) {
+            return undefined;
+        }
+
+        return this.storage.get(key)!;
+    }
+
+    /**
+     * Stores the provided value using specified key in the storage.
+     *
+     * @param key   Identifier of the entry for which the value is to be stored.
+     * @param value The value that is to be stored.
+     */
+    protected setItem(key: string, value: string): void {
+        this.storage.set(key, value);
     }
 
 }
