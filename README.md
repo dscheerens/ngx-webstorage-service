@@ -14,7 +14,7 @@ Doing so has the following advantages:
   The latter can happen for example for older browsers or for browsers that disable web storage when private browsing mode is enabled.
 * By default the storage services can be used to store any value that can be serialized as a JSON string.
   This means you do not have to serialize and deserialize non-string values yourself, which makes the use of the storage services a bit more ergonomic compared to the direct use of `localStorage` and `sessionStorage`.
-  However, instead of JSON you can also choose to use other [storage transcoders](#storage-transcoders), which allows you to control what type of values can be stored and retrieved and also in what format values are stored.
+  However, instead of JSON you can also choose to use other [storage transcoders](#storage-transcoders), which allows you to control what type of values can be stored and retrieved and also in what format data is stored.
 
 ## Installation
 
@@ -180,7 +180,7 @@ Hence the type parameter `T` defaults to `any`.
 
 Sometimes, however, you might prefer to store the data in another format than JSON strings, for example if values are read/written by a third party library that uses a different format.
 This is often the case when the stored value is just a string.
-Since values are read/written as JSON strings a normal string will thus be wrapped in quotes by default (as this is how strings are encoded in JSON format).
+Since values are read/written as JSON strings a normal string will be wrapped in quotes by default (as this is how strings are encoded in JSON format).
 If the third party library writes string values without quotes, then `ngx-webstorage-service` will not be able to read the value, because it is not a valid JSON string.
 
 This problem can be addressed by using a different transcoder, which is illustrated in the following example:
