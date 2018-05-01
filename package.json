@@ -26,7 +26,7 @@
     "test": "ng test --app=lib --single-run --code-coverage",
     "test.watch": "ng test --app=lib --code-coverage",
     "build": "ts-node ng-packagr.ts",
-    "release": "standard-version",
+    "release": "standard-version --message 'release: v%s'",
     "publish.dist": "npm publish build/dist"
   },
   "ngPackage": {
