@@ -19,6 +19,16 @@ export class ProxyStorageService<T> implements StorageService<T> {
         private readonly subject: StorageService
     ) { }
 
+    /**
+     * Checks whether an entry with the specified key exists in the storage.
+     *
+     * @param   key Identifier of the entry for which its presence in the storage is to be checked.
+     * @returns     `true` if an entry with the specified key exists in the storage, `false` if not.
+     */
+    public has(key: string): boolean {
+        return this.subject.has(key);
+    }
+
     /*
      * Retrieves the value stored for the entry that is associated with the specified key. The given decoder is used to convert the stored
      * value to the desired type. If no entry for the specified key exists or if the decoder is unable to decode the stored value, then

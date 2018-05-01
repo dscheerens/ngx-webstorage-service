@@ -18,6 +18,16 @@ export class WebStorageService extends BaseStorageService<any> {
     }
 
     /**
+     * Checks whether an entry with the specified key exists in the storage.
+     *
+     * @param   key Identifier of the entry for which its presence in the storage is to be checked.
+     * @returns     `true` if an entry with the specified key exists in the storage, `false` if not.
+     */
+    public has(key: string): boolean {
+        return this.storage.getItem(key) !== null;
+    }
+
+    /**
      * Removes the entry that is identified by the specified key. Attempting to remove an entry for an unknown key will have no effect.
      * Attempting to retrieve an entry via the `get` method after it has been removed will result in `undefined`.
      *

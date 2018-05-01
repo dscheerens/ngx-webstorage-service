@@ -40,10 +40,26 @@ export function testStorageService(
             expect(storageService.get('key-a')).toBe('second');
         });
 
+        it('can check whether an entry is present in the storage', () => {
+            expect(storageService.has('maybe')).toBe(false);
+            expect(storageService.has('something-else')).toBe(false);
+            storageService.set('maybe', 'yes');
+            expect(storageService.has('maybe')).toBe(true);
+            expect(storageService.has('something-else')).toBe(false);
+        });
+
         it('returns undefined when attempting to fetch an entry for an unknown key', () => {
             expect(storageService.get('non-existing-key')).toBeUndefined();
             expect(storageService.get('bogus')).toBeUndefined();
             expect(storageService.get('!undefined')).toBeUndefined();
+        });
+
+        it('can remove entries', () => {
+            storageService.set('hocus', 'pocus');
+            storageService.set('avada', 'kedavra');
+            storageService.remove('avada');
+            expect(storageService.has('hocus')).toBe(true);
+            expect(storageService.has('avada')).toBe(false);
         });
 
         it('returns undefined for removed entries', () => {
@@ -64,6 +80,9 @@ export function testStorageService(
 
             storageService.clear();
 
+            expect(storageService.has('foo')).toBe(false);
+            expect(storageService.has('bar')).toBe(false);
+            expect(storageService.has('baz')).toBe(false);
             expect(storageService.get('foo')).toBeUndefined();
             expect(storageService.get('bar')).toBeUndefined();
             expect(storageService.get('baz')).toBeUndefined();
@@ -80,11 +99,14 @@ export function testStorageService(
 
             expect(stringStorageService.get('test')).toEqual('hey, this is a string!');
             expect(numberStorageService.get('test')).toBeUndefined();
+            expect(numberStorageService.has('test')).toBe(true);
             expect(booleanStorageService.get('test')).toBeUndefined();
+            expect(booleanStorageService.has('test')).toBe(true);
 
             booleanStorageService.set('boolean-test', false);
             expect(booleanStorageService.get('boolean-test')).toBe(false);
-            expect(numberStorageService.get('boolean')).toBeUndefined();
+            expect(numberStorageService.get('boolean-test')).toBeUndefined();
+            expect(numberStorageService.has('boolean-test')).toBe(true);
 
             numberStorageService.set('number-test', -3.13e-37);
             expect(numberStorageService.get('number-test')).toBe(-3.13e-37);
@@ -96,6 +118,7 @@ export function testStorageService(
                 expect(storageService.get('bad-entry')).toBe('so far so good...');
 
                 prepareFaultyEntry('bad-entry');
+                expect(storageService.has('bad-entry')).toBe(true);
                 expect(storageService.get('bad-entry')).toBeUndefined();
             });
         }

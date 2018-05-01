@@ -8,6 +8,14 @@ import { StorageDecoder, StorageEncoder, StorageTranscoder } from './storage-tra
 export interface StorageService<T = any> {
 
     /**
+     * Checks whether an entry with the specified key exists in the storage.
+     *
+     * @param   key Identifier of the entry for which its presence in the storage is to be checked.
+     * @returns     `true` if an entry with the specified key exists in the storage, `false` if not.
+     */
+    has(key: string): boolean;
+
+    /**
      * Retrieves the value stored for the entry that is associated with the specified key. If no such entry exists or if the service for
      * some reason is unable to fetch the value of the entry then `undefined` will be returned.
      *

@@ -119,6 +119,8 @@ The specific application of the API governs which type of storage is appropriate
 The heart of this package is the `StorageService<T>` interface.
 This `interface` has the following functions:
 
+* `has(key: string): boolean` -
+  Checks whether an entry with the specified key exists in the storage.
 * `get(key: string): T | undefined` -
   Retrieves the value stored for the entry that is associated with the specified key.
   If no such entry exists or if the service for some reason is unable to fetch the value of the entry then `undefined` will be returned.
