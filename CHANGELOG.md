@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.1.0...v3.1.1) (2018-06-20)
+
+
+### Bug Fixes
+
+* reference error when module is used in a non-browser environment (closes [#5](https://github.com/dscheerens/ngx-webstorage-service/issues/5)) ([64ef276](https://github.com/dscheerens/ngx-webstorage-service/commit/64ef276))
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.0.0...v3.1.0) (2018-05-01)
 
