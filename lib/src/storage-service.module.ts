@@ -11,7 +11,7 @@ export const SESSION_STORAGE = new InjectionToken<StorageService>('SESSION_STORA
 export const LOCAL_STORAGE = new InjectionToken<StorageService>('LOCAL_STORAGE');
 
 export function sessionStorageFactory(): StorageService {
-    if (!isStorageAvailable(sessionStorage)) {
+    if (typeof sessionStorage as any === 'undefined' || !isStorageAvailable(sessionStorage)) {
         return new InMemoryStorageService();
     }
 
@@ -19,7 +19,7 @@ export function sessionStorageFactory(): StorageService {
 }
 
 export function localStorageFactory(): StorageService {
-    if (!isStorageAvailable(localStorage)) {
+    if (typeof localStorage as any === 'undefined' || !isStorageAvailable(localStorage)) {
         return new InMemoryStorageService();
     }
 
