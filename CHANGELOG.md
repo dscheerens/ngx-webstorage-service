@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.3"></a>
+## [3.1.3](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.1.2...v3.1.3) (2018-12-10)
+
+
+### Bug Fixes
+
+* incorrect condition when checking the webstorage availability ([e975d08](https://github.com/dscheerens/ngx-webstorage-service/commit/e975d08))
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.1.1...v3.1.2) (2018-12-10)
 
