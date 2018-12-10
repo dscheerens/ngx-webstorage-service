@@ -11,17 +11,22 @@ export const SESSION_STORAGE = new InjectionToken<StorageService>('SESSION_STORA
 export const LOCAL_STORAGE = new InjectionToken<StorageService>('LOCAL_STORAGE');
 
 export function sessionStorageFactory(): StorageService {
-    if (typeof sessionStorage as any === 'undefined' || !isStorageAvailable(sessionStorage)) {
-        return new InMemoryStorageService();
-    }
+
+    try {
+        if (typeof sessionStorage as any === 'undefined' || !isStorageAvailable(sessionStorage)) {
+            return new InMemoryStorageService();
+        }
+    } catch {}
 
     return new WebStorageService(sessionStorage);
 }
 
 export function localStorageFactory(): StorageService {
-    if (typeof localStorage as any === 'undefined' || !isStorageAvailable(localStorage)) {
-        return new InMemoryStorageService();
-    }
+    try {
+        if (typeof localStorage as any === 'undefined' || !isStorageAvailable(localStorage)) {
+            return new InMemoryStorageService();
+        }
+    } catch {}
 
     return new WebStorageService(localStorage);
 }
