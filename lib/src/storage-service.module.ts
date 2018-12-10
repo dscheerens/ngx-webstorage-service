@@ -13,22 +13,22 @@ export const LOCAL_STORAGE = new InjectionToken<StorageService>('LOCAL_STORAGE')
 export function sessionStorageFactory(): StorageService {
 
     try {
-        if (typeof sessionStorage as any === 'undefined' || !isStorageAvailable(sessionStorage)) {
-            return new InMemoryStorageService();
+        if (typeof sessionStorage as any !== 'undefined' && isStorageAvailable(sessionStorage)) {
+            return new WebStorageService(sessionStorage);
         }
     } catch {}
 
-    return new WebStorageService(sessionStorage);
+    return new InMemoryStorageService();
 }
 
 export function localStorageFactory(): StorageService {
     try {
-        if (typeof localStorage as any === 'undefined' || !isStorageAvailable(localStorage)) {
-            return new InMemoryStorageService();
+        if (typeof localStorage as any !== 'undefined' && isStorageAvailable(localStorage)) {
+            return new WebStorageService(localStorage);
         }
     } catch {}
 
-    return new WebStorageService(localStorage);
+    return new InMemoryStorageService();
 }
 
 @NgModule({
