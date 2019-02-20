@@ -1,0 +1,8 @@
+{
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "build/dist",
+    "lib": {
+        "entryFile": "lib/public-api.ts",
+        "umdId": "ngxWebstorageService"
+    }
+}

@@ -10,6 +10,7 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
 
+        "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
@@ -25,7 +26,7 @@
             "dom"
         ],
         "plugins": [
-            { "name": "tslint-language-service" }
+            { "name": "typescript-tslint-plugin" }
         ]
     }
 }
