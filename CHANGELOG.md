@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.0.0](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.1.3...v4.0.0) (2019-02-21)
+
+
+### Features
+
+* make `SESSION_STORAGE` and `LOCAL_STORAGE` self providing in the root injector ([8786c26](https://github.com/dscheerens/ngx-webstorage-service/commit/8786c26))
+* upgrade to Angular 7 ([71cd574](https://github.com/dscheerens/ngx-webstorage-service/commit/71cd574))
+
+
+### BREAKING CHANGES
+
+* Storage services injected using the `SESSION_STORAGE` and `LOCAL_STORAGE` injection tokens are no longer part of the `StorageServiceModule` (now deprecated). Instead they are now self providing in the root injector, which makes them true singleton services. Before multiple instances of these services could exist when lazy loaded routes were used. In practice, however, this change probably doesn't require any modifications to your codebase.
+* the peer dependency for `@angular/core` has been updated to `>=7.0.0`
+
+
+
 <a name="3.1.3"></a>
 ## [3.1.3](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.1.2...v3.1.3) (2018-12-10)
 
