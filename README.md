@@ -1,6 +1,6 @@
 [![Build Status](https://api.travis-ci.org/dscheerens/ngx-webstorage-service.svg?branch=master)](https://travis-ci.org/dscheerens/ngx-webstorage-service) [![NPM Version](https://img.shields.io/npm/v/ngx-webstorage-service.svg)](https://www.npmjs.com/package/ngx-webstorage-service)
 
-# Webstorage services for Angular 5+
+# Webstorage services for Angular
 
 This package provides service wrappers for the [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
 Whenever your application needs to use `localStorage` or `sessionStorage`, instead of using them directly you can make use of the wrapped versions provided by this package.
@@ -18,32 +18,30 @@ Doing so has the following advantages:
 
 ## Installation
 
-Add the module to your `package.json` file:
+Simply add the `ngx-webstorage-service` module to your `package.json` file by executing the following command:
 
 ```
 npm install --save ngx-webstorage-service
 ```
 
-After having installed the `ngx-webstorage-service` package you might need to update your project configuration depending on the build tools you use, e.g. _SystemJS_ or _Karma_.
+After having installed the `ngx-webstorage-service` package you might need to update your project configuration depending on the build tools you use (e.g. when using SystemJS).
+
 The `ngx-webstorage-service` package is published in the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview).
+
+### Angular version compatibility matrix
+
+Use the compatibility matrix below to determine which version of this module works with your project's Angular version.
+
+| Library version                          | Angular version |
+| ---------------------------------------- | --------------- |
+| `angular-webstorage-service` - **1.x.x** | >= **4.0.0**    |
+| `ngx-webstorage-service` - **2.x.x**     | >= **4.0.0**    |
+| `ngx-webstorage-service` - **3.x.x**     | >= **5.0.0**    |
+| `ngx-webstorage-service` - **4.x.x**     | >= **7.0.0**    |
 
 ## Usage
 
-To make use of the (web) storage services in your application, first you need to import the `StorageServiceModule`, e.g.:
-
-```TypeScript
-import { NgModule } from '@angular/core';
-import { StorageServiceModule } from 'ngx-webstorage-service';
-
-@NgModule({
-    imports: [ StorageServiceModule ]
-})
-export class AppModule {
-
-}
-```
-
-The next step is to inject the storage services into your own classes.
+To make use of the (web) storage services in your application inject the storage services into your own classes.
 For example to make use of session storage import the `SESSION_STORAGE` injection token, together with the `StorageService` interface, and use those to inject the session storage service.
 The code snippet below shows an example.
 
@@ -93,12 +91,11 @@ Then, in your module definition, you can create a provider for the injection tok
 
 ```TypeScript
 import { NgModule } from '@angular/core';
-import { SESSION_STORAGE, StorageServiceModule } from 'ngx-webstorage-service';
+import { SESSION_STORAGE } from 'ngx-webstorage-service';
 
 import { MY_AWESOME_SERVICE_STORAGE, MyAwesomeService } from './my-awesome-service';
 
 @NgModule({
-    imports: [ StorageServiceModule ],
     providers: [
         { provide: MY_AWESOME_SERVICE_STORAGE, useExisting: SESSION_STORAGE },
         MyAwesomeService
@@ -156,7 +153,7 @@ Two implementations of the `StorageService` are provided by this package:
 * `WebStorageService` -
   This class serves as a wrapper for the `localStorage` and `sessionStorage` [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) objects.
   You should not create an instance of this class yourself.
-  Instead make use of the `LOCAL_STORAGE` and `SESSION_STORAGE` injection tokens, which are provided by the `StorageServiceModule`.
+  Instead make use of the `LOCAL_STORAGE` and `SESSION_STORAGE` injection tokens.
   By using these tokens instead it becomes easier to override them with another implementation, e.g. a mock version when running unit tests.
   Also these injection tokens have a fallback mechanism available that switches to the `InMemoryStorageService` when `localStorage` and `sessionStorage` are not available.
 
