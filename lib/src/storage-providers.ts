@@ -33,5 +33,5 @@ export function localStorageFactory(): StorageService {
 /** Injection token for the local storage service. */
 export const LOCAL_STORAGE = new InjectionToken<StorageService>(
     'LOCAL_STORAGE',
-    { providedIn: 'root', factory: sessionStorageFactory }
+    { providedIn: 'root', factory: localStorageFactory }
 );
