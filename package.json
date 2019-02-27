@@ -1,6 +1,6 @@
 {
   "name": "ngx-webstorage-service",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Angular service wrappers for the webstorage API",
   "homepage": "https://github.com/dscheerens/ngx-webstorage-service",
   "author": "Daan Scheerens",

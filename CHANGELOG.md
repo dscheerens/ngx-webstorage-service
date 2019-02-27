@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.1](https://github.com/dscheerens/ngx-webstorage-service/compare/v4.0.0...v4.0.1) (2019-02-27)
+
+
+### Bug Fixes
+
+* use `localStorageFactory` instead `sessionStorageFactory` of for `LOCAL_STORAGE` token (closes [#9](https://github.com/dscheerens/ngx-webstorage-service/issues/9)) ([4195180](https://github.com/dscheerens/ngx-webstorage-service/commit/4195180))
+
+
+
 # [4.0.0](https://github.com/dscheerens/ngx-webstorage-service/compare/v3.1.3...v4.0.0) (2019-02-21)
 
 
