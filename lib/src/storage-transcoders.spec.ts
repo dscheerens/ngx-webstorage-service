@@ -82,3 +82,37 @@ describe('number storage transcoder', () => {
     });
 
 });
+
+describe('date iso storage transcoder', () => {
+
+    const transcoder = StorageTranscoders.DATE_ISO_STRING;
+
+    it('correctly encodes values', () => {
+        expect(transcoder.encode(new Date('2019-08-26T15:18:05.822Z'))).toBe('2019-08-26T15:18:05.822Z');
+        expect(transcoder.encode(new Date())).toBe(new Date().toISOString());
+    });
+
+    it('correctly decodes values', () => {
+        expect(transcoder.decode('2019-08-26T15:18:05.822Z')).toEqual(new Date('2019-08-26T15:18:05.822Z'));
+        expect(transcoder.decode('invalid')).toBe(undefined);
+        expect(transcoder.decode('')).toBe(undefined);
+    });
+
+});
+
+describe('date epoch storage transcoder', () => {
+
+    const transcoder = StorageTranscoders.DATE_EPOCH_TIME;
+
+    it('correctly encodes values', () => {
+        expect(transcoder.encode(new Date('2019-08-26T15:18:05.822Z'))).toBe('1566832685822');
+        expect(transcoder.encode(new Date())).toBe(new Date().valueOf().toString());
+    });
+
+    it('correctly decodes values', () => {
+        expect(transcoder.decode('1566832685822')).toEqual(new Date('2019-08-26T15:18:05.822Z'));
+        expect(transcoder.decode('invalid')).toBe(undefined);
+        expect(transcoder.decode('')).toBe(undefined);
+    });
+
+});

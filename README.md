@@ -235,5 +235,7 @@ The following storage transcoders are available:
 * `StorageTranscoders.STRING` - Transcodes strings only and **does not change the format**.
 * `StorageTranscoders.BOOLEAN` - Transcodes booleans and stores them as a strings with the value of either `'true'` or `'false'`.
 * `StorageTranscoders.NUMBER` - Transcodes numbers and stores them as strings (_radix = 10_), e.g. `'123'` or `'-1.2e-34'`.
+* `StorageTranscoders.DATE_ISO_STRING` - Transcodes Date objects and stores them as ISO strings, e.g. `'2019-08-26T15:18:05.822Z'`.
+* `StorageTranscoders.DATE_EPOCH_TIME` - Transcodes Date objects and stores them as epoch timestamps, e.g. `'1566832685822'`.
 
 It is also possible to create your own transcoder by defining an object that conforms to the `StorageTranscoder` interface.
