@@ -88,8 +88,9 @@ describe('date iso storage transcoder', () => {
     const transcoder = StorageTranscoders.DATE_ISO_STRING;
 
     it('correctly encodes values', () => {
+        const now = new Date();
         expect(transcoder.encode(new Date('2019-08-26T15:18:05.822Z'))).toBe('2019-08-26T15:18:05.822Z');
-        expect(transcoder.encode(new Date())).toBe(new Date().toISOString());
+        expect(transcoder.encode(now)).toBe(now.toISOString());
     });
 
     it('correctly decodes values', () => {
@@ -105,8 +106,9 @@ describe('date epoch storage transcoder', () => {
     const transcoder = StorageTranscoders.DATE_EPOCH_TIME;
 
     it('correctly encodes values', () => {
+        const now = new Date();
         expect(transcoder.encode(new Date('2019-08-26T15:18:05.822Z'))).toBe('1566832685822');
-        expect(transcoder.encode(new Date())).toBe(new Date().valueOf().toString());
+        expect(transcoder.encode(now)).toBe(now.valueOf().toString());
     });
 
     it('correctly decodes values', () => {
