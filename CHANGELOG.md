@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [4.1.0](https://github.com/dscheerens/ngx-webstorage-service/compare/v4.0.1...v4.1.0) (2019-08-27)
+
+
+### Features
+
+* **transcoders:** add transcoders for dates ([9ac3e0c](https://github.com/dscheerens/ngx-webstorage-service/commit/9ac3e0c))
+
+
+
 ## [4.0.1](https://github.com/dscheerens/ngx-webstorage-service/compare/v4.0.0...v4.0.1) (2019-02-27)
 
 
