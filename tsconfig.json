@@ -7,6 +7,8 @@
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
 
@@ -28,5 +30,9 @@
         "plugins": [
             { "name": "typescript-tslint-plugin" }
         ]
+    },
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
     }
 }
