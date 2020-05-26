@@ -97,3 +97,37 @@ export function isStorageAvailable(storage: Storage): boolean {
         return false;
     }
 }
+
+/**
+ * Checks whether session storage is available and functional. This might not be the case for older browsers. However even certain browsers
+ * that do support the web storage API can, under some circumstances, have non functional storage objects. For example, Safari is known to
+ * have `sessionStorage` throw exceptions in private mode.
+ *
+ * @returns `true` if session storage can be used, `false` if not.
+ */
+export function isSessionStorageAvailable(): boolean {
+    try {
+        if (typeof sessionStorage as any !== 'undefined') {
+            return isStorageAvailable(sessionStorage);
+        }
+    } catch {}
+
+    return false;
+}
+
+/**
+ * Checks whether local storage is available and functional. This might not be the case for older browsers. However even certain browsers
+ * that do support the web storage API can, under some circumstances, have non functional storage objects. For example, Safari is known to
+ * have `localStorage` throw exceptions in private mode.
+ *
+ * @returns `true` if local storage can be used, `false` if not.
+ */
+export function isLocalStorageAvailable(): boolean {
+    try {
+        if (typeof localStorage as any !== 'undefined') {
+            return isStorageAvailable(localStorage);
+        }
+    } catch {}
+
+    return false;
+}

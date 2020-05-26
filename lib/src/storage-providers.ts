@@ -2,14 +2,12 @@ import { InjectionToken } from '@angular/core';
 
 import { InMemoryStorageService } from './in-memory-storage.service';
 import { StorageService } from './storage.service';
-import { isStorageAvailable, WebStorageService } from './web-storage.service';
+import { WebStorageService, isLocalStorageAvailable, isSessionStorageAvailable } from './web-storage.service';
 
 export function sessionStorageFactory(): StorageService {
-    try {
-        if (typeof sessionStorage as any !== 'undefined' && isStorageAvailable(sessionStorage)) {
-            return new WebStorageService(sessionStorage);
-        }
-    } catch {}
+    if (isSessionStorageAvailable()) {
+        return new WebStorageService(sessionStorage);
+    }
 
     return new InMemoryStorageService();
 }
@@ -21,11 +19,9 @@ export const SESSION_STORAGE = new InjectionToken<StorageService>(
 );
 
 export function localStorageFactory(): StorageService {
-    try {
-        if (typeof localStorage as any !== 'undefined' && isStorageAvailable(localStorage)) {
-            return new WebStorageService(localStorage);
-        }
-    } catch {}
+    if (isLocalStorageAvailable()) {
+        return new WebStorageService(localStorage);
+    }
 
     return new InMemoryStorageService();
 }
