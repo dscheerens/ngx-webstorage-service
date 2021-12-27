@@ -1,6 +1,20 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [5.0.0](https://github.com/dscheerens/ngx-webstorage-service/compare/v4.1.0...v5.0.0) (2021-12-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** peer dependencies have been updated to require at least Angular 13.0.0
+
+### Features
+
+* add `isLocalStorageAvailable` and `isSessionStorageAvailable` functions ([b8c9617](https://github.com/dscheerens/ngx-webstorage-service/commit/b8c9617d5ef410dd390ee3b46ab2cae2e325e19c)), closes [#13](https://github.com/dscheerens/ngx-webstorage-service/issues/13)
+
+
+* **deps:** upgrade to Angular 13 ([dfb065b](https://github.com/dscheerens/ngx-webstorage-service/commit/dfb065bbff40a4eed36630d91a5a1222e766b5ab))
 
 # [4.1.0](https://github.com/dscheerens/ngx-webstorage-service/compare/v4.0.1...v4.1.0) (2019-08-27)
 
