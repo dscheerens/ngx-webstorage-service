@@ -1,20 +1,27 @@
 
 // tslint:disable:no-import-side-effect
 // tslint:disable:no-implicit-dependencies
-import 'zone.js/dist/zone';
-import 'zone.js/dist/zone-testing';
+import 'zone.js';
+import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {
     BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting
+    platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
-declare const require: any;
+declare const require: {
+    context(path: string, deep?: boolean, filter?: RegExp): {
+        keys(): string[];
+        <T>(id: string): T;
+    };
+};
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
     BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting()
+    platformBrowserDynamicTesting(), {
+        teardown: { destroyAfterEach: false },
+    },
 );
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);

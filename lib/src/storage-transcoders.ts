@@ -103,5 +103,5 @@ export const StorageTranscoders = {
     DATE_ISO_STRING: new DateIsoStorageTranscoder() as StorageTranscoder<Date>,
 
     /** Transcoder that encodes/decodes `Date` values into epoch timestamps. */
-    DATE_EPOCH_TIME: new DateEpochStorageTranscoder() as StorageTranscoder<Date>
+    DATE_EPOCH_TIME: new DateEpochStorageTranscoder() as StorageTranscoder<Date>,
 };

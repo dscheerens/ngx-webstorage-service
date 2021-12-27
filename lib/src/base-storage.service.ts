@@ -36,7 +36,7 @@ export abstract class BaseStorageService<T> implements StorageService<T> {
     public get(key: string, decoder?: StorageDecoder<any>): any {
         const value = this.getItem(key);
 
-        return value !== undefined ? (decoder || this.defaultTranscoder).decode(value) : undefined;
+        return value !== undefined ? (decoder ?? this.defaultTranscoder).decode(value) : undefined;
     }
 
     /**
@@ -51,7 +51,7 @@ export abstract class BaseStorageService<T> implements StorageService<T> {
      * @param encoder Encoder used to convert the given value into a format that can be used for storage.
      */
     public set(key: string, value: any, encoder?: StorageEncoder<any>): void {
-        this.setItem(key, (encoder || this.defaultTranscoder).encode(value));
+        this.setItem(key, (encoder ?? this.defaultTranscoder).encode(value));
     }
 
     /**

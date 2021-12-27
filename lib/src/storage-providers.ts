@@ -15,7 +15,7 @@ export function sessionStorageFactory(): StorageService {
 /** Injection token for the session storage service. */
 export const SESSION_STORAGE = new InjectionToken<StorageService>(
     'SESSION_STORAGE',
-    { providedIn: 'root', factory: sessionStorageFactory }
+    { providedIn: 'root', factory: sessionStorageFactory },
 );
 
 export function localStorageFactory(): StorageService {
@@ -29,5 +29,5 @@ export function localStorageFactory(): StorageService {
 /** Injection token for the local storage service. */
 export const LOCAL_STORAGE = new InjectionToken<StorageService>(
     'LOCAL_STORAGE',
-    { providedIn: 'root', factory: localStorageFactory }
+    { providedIn: 'root', factory: localStorageFactory },
 );
