@@ -3,7 +3,7 @@ import { StorageTranscoders } from '../storage-transcoders';
 
 export function testStorageService(
     storageServiceFactory: () => StorageService,
-    prepareFaultyEntry?: (entryKey: string) => void
+    prepareFaultyEntry?: (entryKey: string) => void,
 ): () => void {
 
     return () => {
@@ -86,6 +86,11 @@ export function testStorageService(
             expect(storageService.get('foo')).toBeUndefined();
             expect(storageService.get('bar')).toBeUndefined();
             expect(storageService.get('baz')).toBeUndefined();
+        });
+
+        it('can read and write values using a custom transcoder', () => {
+            storageService.set('foo', '123.45', StorageTranscoders.STRING);
+            expect(storageService.get('foo', StorageTranscoders.NUMBER)).toBe(123.45);
         });
 
         it('supports changing to a different default transcoder', () => {

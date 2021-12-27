@@ -16,7 +16,7 @@ export class ProxyStorageService<T> implements StorageService<T> {
      */
     constructor(
         private readonly defaultTranscoder: StorageTranscoder<T>,
-        private readonly subject: StorageService
+        private readonly subject: StorageService,
     ) { }
 
     /**
@@ -40,7 +40,7 @@ export class ProxyStorageService<T> implements StorageService<T> {
      *                  loaded (due to a decoding issue), then `undefined` will be returned by this function.
      */
     public get(key: string, decoder?: StorageDecoder<any>): any {
-        return this.subject.get(key, decoder || this.defaultTranscoder);
+        return this.subject.get(key, decoder ?? this.defaultTranscoder);
     }
 
     /**
@@ -55,7 +55,7 @@ export class ProxyStorageService<T> implements StorageService<T> {
      * @param encoder Encoder used to convert the given value into a format that can be used for storage.
      */
     public set(key: string, value: any, encoder?: StorageEncoder<any>): void {
-        this.subject.set(key, value, encoder || this.defaultTranscoder);
+        this.subject.set(key, value, encoder ?? this.defaultTranscoder);
     }
 
     /**

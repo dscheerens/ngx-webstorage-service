@@ -10,13 +10,14 @@
             "prefix": "lib",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
-                        "tsConfig": "lib/tsconfig.lib.json",
+                        "tsConfig": "lib/tsconfig.lib.base.json",
                         "project": "ng-package.json"
                     },
                     "configurations": {
                         "production": {
+                            "tsConfig": "lib/tsconfig.lib.prod.json",
                             "project": "ng-package.json"
                         }
                     }
@@ -26,20 +27,8 @@
                     "options": {
                         "sourceMap": true,
                         "main": "lib/test.ts",
-                        "tsConfig": "lib/tsconfig.spec.json",
+                        "tsConfig": "lib/tsconfig.lib.spec.json",
                         "karmaConfig": "lib/karma.conf.js"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "lib/tsconfig.lib.json",
-                            "lib/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
                     }
                 }
             }

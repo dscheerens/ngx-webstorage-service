@@ -3,12 +3,12 @@ import { WebStorageService, isLocalStorageAvailable, isSessionStorageAvailable, 
 
 describe('web storage service for `localStorage`', testStorageService(
     () => new WebStorageService(localStorage),
-    (key: string) => localStorage.setItem(key, 'boom!')
+    (key: string) => localStorage.setItem(key, 'boom!'),
 ));
 
 describe('web storage service for `sessionStorage`', testStorageService(
     () => new WebStorageService(sessionStorage),
-    (key: string) => sessionStorage.setItem(key, 'boom!')
+    (key: string) => sessionStorage.setItem(key, 'boom!'),
 ));
 
 describe('isStorageAvailable() function', () => {
@@ -19,28 +19,28 @@ describe('isStorageAvailable() function', () => {
     });
 
     it('returns false for non Storage objects', () => {
-        expect(isStorageAvailable(<any> {})).toBe(false);
-        expect(isStorageAvailable(<any> '')).toBe(false);
+        expect(isStorageAvailable({} as any)).toBe(false);
+        expect(isStorageAvailable('' as any)).toBe(false);
     });
 
     it('returns false for faulty Storage objects', () => {
-        expect(isStorageAvailable(<any> {
-            setItem(): void { throw new Error('Oops, not supported!'); }
-        })).toBe(false);
+        expect(isStorageAvailable({
+            setItem(): void { throw new Error('Oops, not supported!'); },
+        } as any)).toBe(false);
 
-        expect(isStorageAvailable(<any> {
-            setItem(): void { }
-        })).toBe(false);
-
-        expect(isStorageAvailable(<any> {
+        expect(isStorageAvailable({
             setItem(): void { },
-            getItem(): string { return null!; }
-        })).toBe(false);
+        } as any)).toBe(false);
 
-        expect(isStorageAvailable(<any> {
+        expect(isStorageAvailable({
             setItem(): void { },
-            getItem(): string { throw new Error('Oops, not supported!'); }
-        })).toBe(false);
+            getItem(): string { return null!; },
+        } as any)).toBe(false);
+
+        expect(isStorageAvailable({
+            setItem(): void { },
+            getItem(): string { throw new Error('Oops, not supported!'); },
+        } as any)).toBe(false);
     });
 
     it('returns true for localStorage, provided that is supported by the browser running this test', () => {

@@ -34,10 +34,11 @@ Use the compatibility matrix below to determine which version of this module wor
 
 | Library version                          | Angular version |
 | ---------------------------------------- | --------------- |
-| `angular-webstorage-service` - **1.x.x** | >= **4.0.0**    |
-| `ngx-webstorage-service` - **2.x.x**     | >= **4.0.0**    |
-| `ngx-webstorage-service` - **3.x.x**     | >= **5.0.0**    |
-| `ngx-webstorage-service` - **4.x.x**     | >= **7.0.0**    |
+| `angular-webstorage-service` - **1.x.x** | >=  **4.0.0**   |
+| `ngx-webstorage-service` - **2.x.x**     | >=  **4.0.0**   |
+| `ngx-webstorage-service` - **3.x.x**     | >=  **5.0.0**   |
+| `ngx-webstorage-service` - **4.x.x**     | >=  **7.0.0**   |
+| `ngx-webstorage-service` - **5.x.x**     | >= **13.0.0**   |
 
 ## Usage
 

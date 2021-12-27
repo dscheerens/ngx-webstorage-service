@@ -6,6 +6,6 @@ import { StorageTranscoders } from './storage-transcoders';
 describe('proxy storage service', testStorageService(
     () => new ProxyStorageService(
         StorageTranscoders.JSON,
-        new InMemoryStorageService()
-    )
+        new InMemoryStorageService(),
+    ),
 ));
