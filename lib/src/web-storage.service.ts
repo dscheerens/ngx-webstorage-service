@@ -6,7 +6,7 @@ import { StorageTranscoders } from './storage-transcoders';
  * `sessionStorage`, as backing data store. This class basically wraps the `Storage` object so it can be accessed through the
  * `StorageService` interface.
  */
-export class WebStorageService extends BaseStorageService<any> {
+export class WebStorageService extends BaseStorageService<any> { // eslint-disable-line @typescript-eslint/no-explicit-any
 
     /**
      * Creates a new `WebStorageService` instance that uses the specified (web) storage object as underlying backing storage.
@@ -79,7 +79,7 @@ export class WebStorageService extends BaseStorageService<any> {
  */
 export function isStorageAvailable(storage: Storage): boolean {
     // Check if storage is available.
-    if (!storage) {
+    if (!storage) { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
         return false;
     }
 
@@ -107,10 +107,12 @@ export function isStorageAvailable(storage: Storage): boolean {
  */
 export function isSessionStorageAvailable(): boolean {
     try {
-        if (typeof sessionStorage as any !== 'undefined') {
+        if (typeof sessionStorage !== 'undefined') {
             return isStorageAvailable(sessionStorage);
         }
-    } catch {}
+    } catch {
+        // Ignore and return false.
+    }
 
     return false;
 }
@@ -124,10 +126,12 @@ export function isSessionStorageAvailable(): boolean {
  */
 export function isLocalStorageAvailable(): boolean {
     try {
-        if (typeof localStorage as any !== 'undefined') {
+        if (typeof localStorage !== 'undefined') {
             return isStorageAvailable(localStorage);
         }
-    } catch {}
+    } catch {
+        // Ignore and return false.
+    }
 
     return false;
 }

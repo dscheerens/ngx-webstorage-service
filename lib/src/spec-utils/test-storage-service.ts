@@ -9,7 +9,7 @@ export function testStorageService(
     return () => {
         let storageService: StorageService;
 
-        beforeEach(() => storageService = storageServiceFactory());
+        beforeEach(() => (storageService = storageServiceFactory()));
 
         it('can write values and read them back', () => {
             storageService.set('key-a', 'foo');

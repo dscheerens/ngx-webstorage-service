@@ -19,28 +19,28 @@ describe('isStorageAvailable() function', () => {
     });
 
     it('returns false for non Storage objects', () => {
-        expect(isStorageAvailable({} as any)).toBe(false);
-        expect(isStorageAvailable('' as any)).toBe(false);
+        expect(isStorageAvailable({} as unknown as Storage)).toBe(false);
+        expect(isStorageAvailable('' as unknown as Storage)).toBe(false);
     });
 
     it('returns false for faulty Storage objects', () => {
         expect(isStorageAvailable({
             setItem(): void { throw new Error('Oops, not supported!'); },
-        } as any)).toBe(false);
+        } as unknown as Storage)).toBe(false);
 
         expect(isStorageAvailable({
             setItem(): void { },
-        } as any)).toBe(false);
+        } as unknown as Storage)).toBe(false);
 
         expect(isStorageAvailable({
             setItem(): void { },
             getItem(): string { return null!; },
-        } as any)).toBe(false);
+        } as unknown as Storage)).toBe(false);
 
         expect(isStorageAvailable({
             setItem(): void { },
             getItem(): string { throw new Error('Oops, not supported!'); },
-        } as any)).toBe(false);
+        } as unknown as Storage)).toBe(false);
     });
 
     it('returns true for localStorage, provided that is supported by the browser running this test', () => {
@@ -53,11 +53,11 @@ describe('isStorageAvailable() function', () => {
 
 });
 
-const originalSessionStorageDescriptor = Object.getOwnPropertyDescriptor(window, 'sessionStorage')!;
+const ORIGINAL_SESSION_STORAGE_DESCRIPTOR = Object.getOwnPropertyDescriptor(window, 'sessionStorage')!;
 
 describe('isSessionStorageAvailable() function', () => {
 
-    afterEach(() => Object.defineProperty(window, 'sessionStorage', originalSessionStorageDescriptor));
+    afterEach(() => Object.defineProperty(window, 'sessionStorage', ORIGINAL_SESSION_STORAGE_DESCRIPTOR));
 
     it('returns false if the sessionStorage property does not exist on the window object', () => {
         Object.defineProperty(window, 'sessionStorage', { get: () => undefined });
@@ -77,11 +77,11 @@ describe('isSessionStorageAvailable() function', () => {
 
 });
 
-const originalLocalStorageDescriptor = Object.getOwnPropertyDescriptor(window, 'localStorage')!;
+const ORIGINAL_LOCAL_STORAGE_DESCRIPTOR = Object.getOwnPropertyDescriptor(window, 'localStorage')!;
 
 describe('isLocalStorageAvailable() function', () => {
 
-    afterEach(() => Object.defineProperty(window, 'localStorage', originalLocalStorageDescriptor));
+    afterEach(() => Object.defineProperty(window, 'localStorage', ORIGINAL_LOCAL_STORAGE_DESCRIPTOR));
 
     it('returns false if the localStorage property does not exist on the window object', () => {
         Object.defineProperty(window, 'localStorage', { get: () => undefined });

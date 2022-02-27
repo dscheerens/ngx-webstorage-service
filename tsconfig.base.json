@@ -18,15 +18,10 @@
             "es2019",
             "dom"
         ],
-        "plugins": [
-            {
-                "name": "typescript-tslint-plugin"
-            }
-        ],
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
-        "fullTemplateTypeCheck": true,
+        "strictTemplates": true,
         "strictInputAccessModifiers": true,
         "strictInjectionParameters": true
     },

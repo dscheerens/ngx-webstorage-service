@@ -1,5 +1,5 @@
 import { StorageService } from './storage.service';
-import { StorageTranscoder, StorageDecoder, StorageEncoder } from './storage-transcoder';
+import { StorageDecoder, StorageEncoder, StorageTranscoder } from './storage-transcoder';
 
 /**
  * A storage service implementation that is used as a proxy for another storage service. This is used to create storage services with a
@@ -39,7 +39,7 @@ export class ProxyStorageService<T> implements StorageService<T> {
      * @returns         Value of the entry that is identified by the specified key. In case the entry does not exist or if it cannot be
      *                  loaded (due to a decoding issue), then `undefined` will be returned by this function.
      */
-    public get(key: string, decoder?: StorageDecoder<any>): any {
+    public get(key: string, decoder?: StorageDecoder<any>): any { // eslint-disable-line @typescript-eslint/no-explicit-any
         return this.subject.get(key, decoder ?? this.defaultTranscoder);
     }
 
@@ -54,7 +54,7 @@ export class ProxyStorageService<T> implements StorageService<T> {
      * @param value   Value which is to be stored.
      * @param encoder Encoder used to convert the given value into a format that can be used for storage.
      */
-    public set(key: string, value: any, encoder?: StorageEncoder<any>): void {
+    public set(key: string, value: any, encoder?: StorageEncoder<any>): void { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.subject.set(key, value, encoder ?? this.defaultTranscoder);
     }
 

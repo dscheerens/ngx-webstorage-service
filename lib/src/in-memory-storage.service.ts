@@ -5,7 +5,7 @@ import { StorageTranscoders } from './storage-transcoders';
  * A volatile `StorageService` implementation. This service guarantees that data stored will remain available as long as the application
  * instance is active. After the application is terminated all data will be lost.
  */
-export class InMemoryStorageService extends BaseStorageService<any> {
+export class InMemoryStorageService extends BaseStorageService<any> { // eslint-disable-line @typescript-eslint/no-explicit-any
 
     /** A map that serves as the underlying backing storage for this service. */
     private readonly storage: Map<string, string> = new Map<string, string>();

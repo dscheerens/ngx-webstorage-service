@@ -33,7 +33,7 @@ export abstract class BaseStorageService<T> implements StorageService<T> {
      * @returns         Value of the entry that is identified by the specified key. In case the entry does not exist or if it cannot be
      *                  loaded (due to a decoding issue), then `undefined` will be returned by this function.
      */
-    public get(key: string, decoder?: StorageDecoder<any>): any {
+    public get(key: string, decoder?: StorageDecoder<any>): any { // eslint-disable-line @typescript-eslint/no-explicit-any
         const value = this.getItem(key);
 
         return value !== undefined ? (decoder ?? this.defaultTranscoder).decode(value) : undefined;
@@ -50,7 +50,7 @@ export abstract class BaseStorageService<T> implements StorageService<T> {
      * @param value   Value which is to be stored.
      * @param encoder Encoder used to convert the given value into a format that can be used for storage.
      */
-    public set(key: string, value: any, encoder?: StorageEncoder<any>): void {
+    public set(key: string, value: any, encoder?: StorageEncoder<any>): void { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.setItem(key, (encoder ?? this.defaultTranscoder).encode(value));
     }
 

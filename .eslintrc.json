@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["./tsconfig.base.json"],
+        "createDefaultProgram": true
+      },
+      "extends": ["@dscheerens/eslint-config-angular/typescript"]
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["@dscheerens/eslint-config-angular/html"]
+    }
+  ]
+}

@@ -8,7 +8,7 @@ describe('JSON storage transcoder', () => {
         expect(transcoder.encode(null)).toBe('null');
         expect(transcoder.encode(123.45)).toBe('123.45');
         expect(transcoder.encode('a string')).toBe('"a string"');
-        expect(transcoder.encode([ 1, 2, 'a', 3, 'b'])).toBe('[1,2,"a",3,"b"]');
+        expect(transcoder.encode([1, 2, 'a', 3, 'b'])).toBe('[1,2,"a",3,"b"]');
         expect(transcoder.encode({ foo: null, bar: { beer: true }, baz: 'dunno' })).toBe('{"foo":null,"bar":{"beer":true},"baz":"dunno"}');
     });
 
@@ -16,7 +16,7 @@ describe('JSON storage transcoder', () => {
         expect(transcoder.decode('null')).toBe(null);
         expect(transcoder.decode('123.45')).toBe(123.45);
         expect(transcoder.decode('"a string"')).toBe('a string');
-        expect(transcoder.decode('[1,2,"a",3,"b"]')).toEqual([ 1, 2, 'a', 3, 'b']);
+        expect(transcoder.decode('[1,2,"a",3,"b"]')).toEqual([1, 2, 'a', 3, 'b']);
         expect(transcoder.decode('{"foo":null,"bar":{"beer":true},"baz":"dunno"}'))
             .toEqual({ foo: null, bar: { beer: true }, baz: 'dunno' });
         expect(transcoder.decode('a-very-much-incorrect-json-string')).toBe(undefined);

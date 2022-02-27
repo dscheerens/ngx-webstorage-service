@@ -5,7 +5,7 @@ import { StorageDecoder, StorageEncoder, StorageTranscoder } from './storage-tra
  *
  * The `StorageService` interface is parameterized on `T` which represents the type of objects which can be read and written.
  */
-export interface StorageService<T = any> {
+export interface StorageService<T = any> { // eslint-disable-line @typescript-eslint/no-explicit-any
 
     /**
      * Checks whether an entry with the specified key exists in the storage.

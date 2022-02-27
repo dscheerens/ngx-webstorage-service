@@ -1,13 +1,14 @@
+/* eslint-disable max-classes-per-file */
 import { StorageTranscoder } from './storage-transcoder';
 
 /** Transcoder that encodes values as JSON strings. */
-export class JsonStorageTranscoder implements StorageTranscoder<any> {
+export class JsonStorageTranscoder implements StorageTranscoder<any> { // eslint-disable-line @typescript-eslint/no-explicit-any
 
-    public encode(value: any): string {
+    public encode(value: any): string { // eslint-disable-line @typescript-eslint/no-explicit-any
         return JSON.stringify(value);
     }
 
-    public decode(value: string): any {
+    public decode(value: string): any { // eslint-disable-line @typescript-eslint/no-explicit-any
         try {
             return JSON.parse(value);
         } catch (error) {
@@ -86,9 +87,9 @@ export class DateEpochStorageTranscoder implements StorageTranscoder<Date> {
 }
 
 /** A set of storage transcoders. */
-export const StorageTranscoders = {
+export const StorageTranscoders = { // eslint-disable-line @typescript-eslint/naming-convention
     /** Transcoder that encodes values as JSON strings. */
-    JSON: new JsonStorageTranscoder() as StorageTranscoder<any>,
+    JSON: new JsonStorageTranscoder() as StorageTranscoder<any>, // eslint-disable-line @typescript-eslint/no-explicit-any
 
     /** Transcoder that encodes/decodes strings **as is**, i.e. values are not modified in any way. */
     STRING: new StringStorageTranscoder() as StorageTranscoder<string>,
