@@ -221,11 +221,11 @@ export class AnsweringService {
     }
 
     public get theAnswer(): number {
-        return numberStorage.get('answer');
+        return this.numberStorage.get('answer');
     }
 
     public set theAnswer(value: number) {
-        return numberStorage.set('answer', value);
+        this.numberStorage.set('answer', value);
     }
 }
 ```
